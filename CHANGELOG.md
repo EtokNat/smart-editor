@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/EtokNat/smart-editor/compare/v1.0.0...v1.1.0) (2025-12-31)
+
+
+### Features
+
+* test automatic release ([cb4e951](https://github.com/EtokNat/smart-editor/commit/cb4e951efe9308cc8a7e3710b51c3f91e9dd97ce))
+
 # 1.0.0 (2025-12-31)
 
 
