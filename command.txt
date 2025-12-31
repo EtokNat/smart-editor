@@ -1,0 +1,2 @@
+What are some fundamental flaws or basic improvements  you have noticed 
+or you think can be added to  this editor to make it world class in terms of typing and editing, copying and pasting mathematical texts and images. Also I need other improvements to the UI/ux design. The aim is to make it world class.
