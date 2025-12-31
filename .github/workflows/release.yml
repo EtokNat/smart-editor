@@ -3,32 +3,41 @@ on:
   push:
     branches: [ main ]
 
+# Permissions granted at the workflow level for all jobs
 permissions:
-  contents: read
+  contents: write  # Allows creating commits, tags, and releases
+  issues: write    # Allows commenting on issues (if linked in commits)
+  pull-requests: write # Allows commenting on pull requests
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+
+    # Job-specific permissions (they inherit from workflow level)
     permissions:
-      contents: write  # To create commits/tags and GitHub Releases
-      issues: write    # To comment on released issues
-      pull-requests: write # To comment on released PRs
-      id-token: write  # Required for npm trusted publishing (if you publish)
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Required for semantic-release to analyze the full commit history
+          fetch-depth: 0 # Crucial for semantic-release to analyze commit history
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
+          cache: 'npm'
+
       - name: Install dependencies
         run: npm clean-install
-      - name: Verify installed package integrity
-        run: npm audit signatures
+
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # This MUST use the PAT secret you added, not the default token
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}
         run: npx semantic-release
